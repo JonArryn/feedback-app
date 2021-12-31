@@ -13,7 +13,9 @@ function RatingSelect({ select }) {
   const { feedbackEdit } = useContext(FeedbackContext);
 
   useEffect(() => {
-    setSelected(feedbackEdit.item.rating);
+    if (feedbackEdit.item.rating) {
+      setSelected(feedbackEdit.item.rating);
+    } else setSelected(10);
   }, [feedbackEdit]);
 
   return (
