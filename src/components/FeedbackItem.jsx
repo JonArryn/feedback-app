@@ -1,10 +1,13 @@
 import React from "react";
-import Card from "../shared/card/Card";
+import { FaTimes } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import Card from "./shared/Card";
 import PropTypes from "prop-types";
-import { FaTimes, FaEdit } from "react-icons/fa";
-import { useContext } from "react";
-import FeedbackContext from "../../context/FeedbackContext";
 
+import { useContext } from "react";
+import FeedbackContext from "../context/FeedbackContext";
+
+// FeedbackItem({item}) passed in from FeedbackList component
 function FeedbackItem({ item }) {
   const { deleteFeedback, editFeedback } = useContext(FeedbackContext);
 
@@ -23,7 +26,7 @@ function FeedbackItem({ item }) {
 }
 
 FeedbackItem.propTypes = {
-  item: PropTypes.object,
+  item: PropTypes.object.isRequired,
 };
 
 export default FeedbackItem;

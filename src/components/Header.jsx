@@ -6,7 +6,6 @@ function Header({ text, bgColor, textColor }) {
     backgroundColor: bgColor,
     color: textColor,
   };
-
   return (
     <header style={headerStyles}>
       <div className="container">
@@ -23,7 +22,7 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
   bgColor: PropTypes.string,
   textColor: PropTypes.string,
 };

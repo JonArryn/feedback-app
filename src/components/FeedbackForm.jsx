@@ -1,19 +1,26 @@
 import React from "react";
-import Card from "../shared/card/Card";
 import { useState, useContext, useEffect } from "react";
-import Button from "../shared/button/Button";
-import RatingSelect from "../rating-select/RatingSelect";
-import FeedbackContext from "../../context/FeedbackContext";
+// components
+import Card from "./shared/Card";
+import Button from "./shared/Button";
+import RatingSelect from "./RatingSelect";
+
+// context
+import FeedbackContext from "../context/FeedbackContext";
 
 function FeedbackForm() {
-  const [text, setText] = useState("");
-  const [rating, setRating] = useState(10);
-  const [btnDisabled, setBtnDisabled] = useState(true);
-  const [message, setMessage] = useState("");
+  // context state
 
   const { addFeedback, feedbackEdit, updateFeedback } =
     useContext(FeedbackContext);
 
+  // local state
+  const [text, setText] = useState("");
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [rating, setRating] = useState(10);
+  const [message, setMessage] = useState("");
+
+  // useEffect for feedbackEdit - loads selected feedback into feedback form, enables submit button
   useEffect(() => {
     if (feedbackEdit.edit === true) {
       setBtnDisabled(false);
@@ -22,20 +29,26 @@ function FeedbackForm() {
     }
   }, [feedbackEdit]);
 
-  const handleTextChange = (e) => {
-    if (text === "") {
+  // local functions
+
+  // listens for user text input on review form
+  const handleTextChange = ({ target: { value } }) => {
+    setText(value);
+
+    // submission validation
+    if (value === "") {
       setBtnDisabled(true);
       setMessage(null);
-    } else if (text !== "" && text.trim().length <= 10) {
-      setMessage("Text must be at least 10 characters");
+    } else if (value !== "" && value.trim().length < 10) {
       setBtnDisabled(true);
+      setMessage("Feedback must be at least 10 characters");
     } else {
       setMessage(null);
       setBtnDisabled(false);
     }
-    setText(e.target.value);
   };
 
+  // adds feedback to FeedbackList upon submit
   const handleSubmit = (event) => {
     event.preventDefault();
     if (text.trim().length > 10) {
@@ -44,30 +57,30 @@ function FeedbackForm() {
         rating,
       };
 
+      // checks if feedback is being edited
       if (feedbackEdit.edit === true) {
         updateFeedback(feedbackEdit.item.id, newFeedback);
       } else {
         addFeedback(newFeedback);
+        setText("");
       }
-
-      setText("");
     }
   };
 
   return (
     <Card>
       <form onSubmit={handleSubmit}>
-        <h2>How Would You Rate Your Experience?</h2>
+        <h2>How would you rate your experience?</h2>
         <RatingSelect select={(rating) => setRating(rating)} />
         <div className="input-group">
           <input
             onChange={handleTextChange}
             type="text"
-            placeholder="Write a Review"
+            placeholder="Write a review..."
             value={text}
           />
           <Button type="submit" isDisabled={btnDisabled}>
-            Send
+            Submit
           </Button>
         </div>
         {message && <div className="message">{message}</div>}

@@ -16,9 +16,9 @@
       "text": "This is feedback item 3 coming from the backend"
     },
     {
-      "text": "This is a new feedback (updated)",
-      "rating": 8,
-      "id": 4
+      "text": "here is a new piece of feedback PUT to the backend",
+      "rating": 5,
+      "id": 5
     }
   ]
 }

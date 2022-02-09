@@ -1,12 +1,13 @@
-import Header from "./components/header/Header";
-
-import FeedbackList from "./components/feedback-list/FeedbackList";
-import FeedbackStats from "./components/feedback-stats/FeedbackStats";
-import FeedbackForm from "./components/feedback-form/FeedbackForm";
-import AboutPage from "./pages/AboutPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AboutIconLink from "./components/about-icon/AboutIconLink";
+
+import AboutPage from "./pages/AboutPage";
 import { FeedbackProvider } from "./context/FeedbackContext";
+import Header from "./components/Header";
+import FeedbackList from "./components/FeedbackList.jsx";
+import FeedbackForm from "./components/FeedbackForm";
+import FeedbackStats from "./components/FeedbackStats";
+import AboutIconLink from "./components/AboutIconLink";
+import Post from "./components/Post";
 
 function App() {
   return (
@@ -27,7 +28,9 @@ function App() {
               }
             ></Route>
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/post/*" element={<Post />} />
           </Routes>
+
           <AboutIconLink />
         </div>
       </Router>
